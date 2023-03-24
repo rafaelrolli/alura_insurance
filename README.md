@@ -7,3 +7,8 @@ PyTest;
 Jupyter;
 NumPy;
 Pandas;
+
+Desenvolvedor do projeto:
+Nome: Rafael Rolli
+E-mail: rrolli@mag.com.br
+Departamento: Técnico Atuarial
