@@ -40,7 +40,7 @@ class Segurado:
         return self.__contato
 
     def nome_completo(self):
-        return "{} {}".format(self.__cadastro.nome, self.__cadastro.sobrenome)
+        return "{} {}".format(self.__nome.nome, self.__nome.sobrenome)
 
     def premio_total(self):
         premio_total = 0
