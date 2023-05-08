@@ -1,170 +1,154 @@
-class Segurado:
-
-    def __init__(self, nome, sobrenome, data_nascimento, cpf, rg, endereco, contato, beneficiarios, apolices):
-        self.__nome = nome.title()
-        self.__sobrenome = sobrenome.title()
-        self.__data_nascimento = data_nascimento
-        self.__cpf = cpf
-        self.__rg = rg
-        self.__endereco = endereco
-        self.__contato = contato
-        self.__beneficiarios = beneficiarios
-        self.__apolices = apolices
+class Cliente:
+    def __init__(self, nome, sobrenome, data_nascimento, cpf, rg, endereco, contato):
+        self._nome = nome.title()
+        self._sobrenome = sobrenome.title()
+        self._data_nascimento = data_nascimento
+        self._cpf = cpf
+        self._rg = rg
+        self._endereco = endereco
+        self._contato = contato
 
     @property
     def nome(self):
-        return self.__nome
+        return self._nome
 
     @property
     def sobrenome(self):
-        return self.__sobrenome
+        return self._sobrenome
 
     @property
     def data_nascimento(self):
-        return self.__data_nascimento
+        return self._data_nascimento
 
     @property
     def cpf(self):
-        return self.__cpf
+        return self._cpf
 
     @property
     def rg(self):
-        return self.__rg
+        return self._rg
 
     @property
     def endereco(self):
-        return self.__endereco
+        return self._endereco
 
     @property
     def contato(self):
-        return self.__contato
+        return self._contato
 
     def nome_completo(self):
-        return "{} {}".format(self.__nome.nome, self.__nome.sobrenome)
+        return f"{self.nome} {self.sobrenome}"
 
-    def premio_total(self):
-        premio_total = 0
-        for apolice in self.__apolices:
-            premio_total += apolice.valor_premio
-        return premio_total
 
-class Beneficiario:
-
-    def __init__(self, nome, sobrenome, data_nascimento, cpf, rg, tipo_benef, endereco, contato):
-        self.__nome = nome.title()
-        self.__sobrenome = sobrenome.title()
-        self.__data_nascimento = data_nascimento
-        self.__cpf = cpf
-        self.__rg = rg
-        self.__tipo_benef = tipo_benef
-        self.__endereco = endereco
-        self.__contato = contato
+class Segurado(Cliente):
+    def __init__(self, nome, sobrenome, data_nascimento, cpf, rg, endereco, contato, beneficiarios, apolices):
+        super().__init__(nome, sobrenome, data_nascimento, cpf, rg, endereco, contato)
+        self._beneficiarios = beneficiarios
+        self._apolices = apolices
 
     @property
-    def nome(self):
-        return self.__nome
-
-    @property
-    def sobrenome(self):
-        return self.__sobrenome
-
-    @property
-    def data_nascimento(self):
-        return self.__data_nascimento
-
-    @property
-    def cpf(self):
-        return self.__cpf
-
-    @property
-    def rg(self):
-        return self.__rg
-
-    @property
-    def tipo_benef(self):
-        return self.__tipo_benef
-
-    @property
-    def endereco(self):
-        return self.__endereco
-
-    @property
-    def contato(self):
-        return self.__contato
-
-class Apolice:
-    def __init__(self, numero_apolice, tipo_apolice, valor_premio, segurado, corretor, inicio_vigencia, fim_vigencia, status):
-        self.__numero_apolice = numero_apolice
-        self.__tipo_apolice = tipo_apolice
-        self.__valor_premio = valor_premio
-        self.__segurado = segurado
-        self.__corretor = corretor
-        self.__inicio_vigencia = inicio_vigencia
-        self.__fim_vigencia = fim_vigencia
-        self.__status = status
-
-    @property
-    def apolice(self):
-        return self.__numero_apolice
-
-    @property
-    def tipo_apolice(self):
-        return self.__tipo_apolice
-
-    @property
-    def valor_premio(self):
-        return self.__valor_premio
-
-    @property
-    def segurado(self):
-        return self.__segurado
-
-    @property
-    def corretor(self):
-        return self.__corretor
-
-    @property
-    def inicio_vigencia(self):
-        return self.__inicio_vigencia
-
-    @property
-    def fim_vigencia(self):
-        return self.__fim_vigencia
-
-    @property
-    def status(self):
-        return self.__status
-
-class Corretor:
-    def __init__(self, nome, sobrenome, numero_susep, apolices, contato):
-        self.__nome = nome.title()
-        self.__sobrenome = sobrenome.title()
-        self.__numero_susep = numero_susep
-        self.__apolices = apolices
-        self.__contato = contato
-
-    @property
-    def nome(self):
-        return self.__nome
-
-    @property
-    def sobrenome(self):
-        return self.__sobrenome
-
-    @property
-    def numero_susep(self):
-        return self.__numero_susep
+    def beneficiarios(self):
+        return self._beneficiarios
 
     @property
     def apolices(self):
-        return self.__apolices
+        return self._apolices
+
+    def premio_total(self):
+        premio_total = 0
+        for apolice in self._apolices:
+            premio_total += apolice.valor_premio
+        return premio_total
+
+
+class Beneficiario(Cliente):
+    def __init__(self, nome, sobrenome, data_nascimento, cpf, rg, tipo_benef, endereco, contato):
+        super().__init__(nome, sobrenome, data_nascimento, cpf, rg, endereco, contato)
+        self._tipo_benef = tipo_benef
+
+    @property
+    def tipo_benef(self):
+        return self._tipo_benef
+
+
+class Apolice:
+    def __init__(self, numero_apolice, tipo_apolice, valor_premio, segurado, corretor, inicio_vigencia, fim_vigencia, status):
+        self._numero_apolice = numero_apolice
+        self._tipo_apolice = tipo_apolice
+        self._valor_premio = valor_premio
+        self._segurado = segurado
+        self._corretor = corretor
+        self._inicio_vigencia = inicio_vigencia
+        self._fim_vigencia = fim_vigencia
+        self._status = status
+
+    @property
+    def apolice(self):
+        return self._numero_apolice
+
+    @property
+    def tipo_apolice(self):
+        return self._tipo_apolice
+
+    @property
+    def valor_premio(self):
+        return self._valor_premio
+
+    @property
+    def segurado(self):
+        return self._segurado
+
+    @property
+    def corretor(self):
+        return self._corretor
+
+    @property
+    def inicio_vigencia(self):
+        return self._inicio_vigencia
+
+    @property
+    def fim_vigencia(self):
+        return self._fim_vigencia
+
+    @property
+    def status(self):
+        return self._status
+
+class Corretor:
+    def __init__(self, nome, sobrenome, numero_susep, apolices, contato):
+        self._nome = nome.title()
+        self._sobrenome = sobrenome.title()
+        self._numero_susep = numero_susep
+        self._apolices = apolices
+        self._contato = contato
+
+    @property
+    def nome(self):
+        return self._nome
+
+    @property
+    def sobrenome(self):
+        return self._sobrenome
+
+    @property
+    def numero_susep(self):
+        return self._numero_susep
+
+    @property
+    def apolices(self):
+        return self._apolices
 
     @property
     def contato(self):
-        return self.__contato
+        return self._contato
 
     def comissao_total(self):
         comissao_total = 0
-        for apolice in self.__apolices:
+        for apolice in self._apolices:
             comissao_total += (apolice.valor_premio * 0.01)
         return comissao_total
+
+
+cliente1 = Cliente("josé", "da silva", "1980-01-01", 1234567890, 123456789, 5521999887785)
+segurado1 = Segurado("rafael", "rolli", 1, 2, 3, 4, 5, 6, (7, 8, 9))
+print(cliente1.apolices)
